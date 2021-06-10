@@ -1,6 +1,6 @@
 import React from 'react';
-import Card from './Card.js';
-import { api } from '../utils/Api.js';
+import Card from './Card';
+import { api } from '../utils/api';
 
 class Main extends React.Component {
   constructor(props) {
@@ -45,7 +45,7 @@ class Main extends React.Component {
         <section className="elements">
           <ul className="elements__list">
             {this.state.cards.map((card, i) => (
-              <Card key={i} card={card} onCardClick={this.props.onCardClick} />
+              <Card key={card._id} card={card} onCardClick={this.props.onCardClick} />
             ))}
           </ul>
         </section>
