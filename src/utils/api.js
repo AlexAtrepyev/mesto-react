@@ -29,7 +29,7 @@ class Api {
     }).then(res => this._checkResponseStatus(res));
   }
   
-  editUserInfo({ name, about }) {
+  setUserInfo({ name, about }) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
       headers: {
