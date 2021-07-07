@@ -33,12 +33,12 @@ function Main(props) {
   return (
     <main>
       <section className="profile">
-        <img className="profile__avatar" src={currentUser && currentUser.avatar} alt="аватар" />
+        <img className="profile__avatar" src={currentUser?.avatar ? currentUser.avatar : '#'} alt="аватар" />
         <button className="profile__button-edit-avatar" type="button" onClick={props.onEditAvatar} />
         <div className="profile__info">
           <div className="profile__text">
-            <h1 className="profile__name">{currentUser && currentUser.name}</h1>
-            <p className="profile__about">{currentUser && currentUser.about}</p>
+            <h1 className="profile__name">{currentUser?.name ? currentUser.name : ''}</h1>
+            <p className="profile__about">{currentUser?.about ? currentUser.about : ''}</p>
           </div>
           <button className="profile__button-edit" type="button" onClick={props.onEditProfile} />
         </div>
