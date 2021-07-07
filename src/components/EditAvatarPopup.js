@@ -1,14 +1,8 @@
 import React from 'react';
-import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import PopupWithForm from './PopupWithForm.js';
 
 function EditAvatarPopup(props) {
-  const currentUser = React.useContext(CurrentUserContext);
   const avatarRef = React.useRef('');
-  
-  React.useEffect(() => {
-    avatarRef.current.value = currentUser?.avatar ? currentUser.avatar : '';
-  }, [currentUser]);
   
   function handleChange(e) {
     avatarRef.current.value = e.target.value;
@@ -19,6 +13,7 @@ function EditAvatarPopup(props) {
     props.onUpdateAvatar({
       avatar: avatarRef.current.value
     });
+    avatarRef.current.value = '';
   }
   
   return (

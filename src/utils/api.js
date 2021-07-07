@@ -16,19 +16,6 @@ class Api {
     }).then(res => this._checkResponseStatus(res));
   }
   
-  setUserAvatar({ avatar }) {
-    return fetch(`${this._baseUrl}/users/me/avatar`, {
-      method: 'PATCH',
-      headers: {
-        authorization: this._authorization,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        avatar: avatar
-      })
-    }).then(res => this._checkResponseStatus(res));
-  }
-  
   setUserInfo({ name, about }) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
@@ -43,7 +30,20 @@ class Api {
     }).then(res => this._checkResponseStatus(res));
   }
   
-  getInitialCards() {
+  setUserAvatar({ avatar }) {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
+      method: 'PATCH',
+      headers: {
+        authorization: this._authorization,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        avatar: avatar
+      })
+    }).then(res => this._checkResponseStatus(res));
+  }
+  
+  getCardList() {
     return fetch(`${this._baseUrl}/cards`, {
       headers: {
         authorization: this._authorization
@@ -77,24 +77,6 @@ class Api {
   changeLikeCardStatus(cardId, needLike) {
     return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
       method: needLike ? 'PUT': 'DELETE',
-      headers: {
-        authorization: this._authorization
-      }
-    }).then(res => this._checkResponseStatus(res));
-  }
-  
-  putLike(cardId) {
-    return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
-      method: 'PUT',
-      headers: {
-        authorization: this._authorization
-      }
-    }).then(res => this._checkResponseStatus(res));
-  }
-  
-  deleteLike(cardId) {
-    return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
-      method: 'DELETE',
       headers: {
         authorization: this._authorization
       }
