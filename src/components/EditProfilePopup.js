@@ -8,9 +8,9 @@ function EditProfilePopup(props) {
   const [description, setDescription] = React.useState('');
   
   React.useEffect(() => {
-    setName(currentUser?.name ? currentUser.name : '');
-    setDescription(currentUser?.about ? currentUser.about : '');
-  }, [currentUser]);
+    setName(currentUser?.name || '');
+    setDescription(currentUser?.about || '');
+  }, [currentUser, props.isOpen]);
   
   function handleChange(e) {
     e.target.name === "name" ? setName(e.target.value) : setDescription(e.target.value);
@@ -22,15 +22,40 @@ function EditProfilePopup(props) {
       name,
       about: description,
     });
-    setName('');
-    setDescription('');
   }
   
   return (
-    <PopupWithForm name="edit" title="Редактировать профиль" buttonText="Сохранить" isOpen={props.isOpen} onClose={props.onClose} onSubmit={handleSubmit}>
-      <input className="form__input" type="text" name="name" placeholder="Имя" value={name} onChange={handleChange} required minLength="2" maxLength="40" />
+    <PopupWithForm
+      name="edit"
+      title="Редактировать профиль"
+      buttonText="Сохранить"
+      isOpen={props.isOpen}
+      onClose={props.onClose}
+      onSubmit={handleSubmit}
+    >
+      <input
+        className="form__input"
+        type="text"
+        name="name"
+        placeholder="Имя"
+        value={name}
+        onChange={handleChange}
+        minLength="2"
+        maxLength="40"
+        required
+      />
       <span className="form__error" id="name-error">Текст</span>
-      <input className="form__input" type="text" name="about" placeholder="О себе" value={description} onChange={handleChange} required minLength="2" maxLength="200" />
+      <input
+        className="form__input"
+        type="text"
+        name="about"
+        placeholder="О себе"
+        value={description}
+        onChange={handleChange}
+        minLength="2"
+        maxLength="200"
+        required
+      />
       <span className="form__error" id="about-error">Текст</span>
     </PopupWithForm>
   );

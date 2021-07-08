@@ -54,21 +54,28 @@ function App() {
   
   function handleUpdateAvatar({ avatar }) {
     api.setUserAvatar({ avatar })
-      .then(user => setCurrentUser(user))
-      .catch(err => console.log(err))
-      .finally(closeAllPopups());
+      .then(user => {
+        setCurrentUser(user);
+        closeAllPopups();
+      })
+      .catch(err => console.log(err));
   }
   
   function handleUpdateUser(userData) {
     api.setUserInfo(userData)
-      .then(user => setCurrentUser(user))
-      .catch(err => console.log(err))
-      .finally(closeAllPopups());
+      .then(user => {
+        setCurrentUser(user);
+        closeAllPopups();
+      })
+      .catch(err => console.log(err));
   }
   
   function handleAddPlaceSubmit({ title, link }) {
     api.addCard({ title, link })
-      .then(newCard => setCards([newCard, ...cards]))
+      .then(newCard => {
+        setCards([newCard, ...cards]);
+        closeAllPopups();
+      })
       .catch(err => console.log(err));
   }
   
@@ -90,18 +97,40 @@ function App() {
   }
   
   return (
-    <>
-      <CurrentUserContext.Provider value={currentUser}>
-        <Header />
-        <Main onEditAvatar={handleEditAvatarClick} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} cards={cards} onCardClick={handleCardClick} onCardLike={handleCardLike} onCardDelete={handleCardDelete} />
-        <Footer />
-        
-        <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
-        <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
-        <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlaceSubmit} />
-        <ImagePopup card={selectedCard} isOpen={isImagePopupOpen} onClose={closeAllPopups} />
-      </CurrentUserContext.Provider>
-    </>
+    <CurrentUserContext.Provider value={currentUser}>
+      <Header />
+      <Main
+        onEditAvatar={handleEditAvatarClick}
+        onEditProfile={handleEditProfileClick}
+        onAddPlace={handleAddPlaceClick}
+        cards={cards}
+        onCardClick={handleCardClick}
+        onCardLike={handleCardLike}
+        onCardDelete={handleCardDelete}
+      />
+      <Footer />
+      
+      <EditAvatarPopup
+        isOpen={isEditAvatarPopupOpen}
+        onClose={closeAllPopups}
+        onUpdateAvatar={handleUpdateAvatar}
+      />
+      <EditProfilePopup
+        isOpen={isEditProfilePopupOpen}
+        onClose={closeAllPopups}
+        onUpdateUser={handleUpdateUser}
+      />
+      <AddPlacePopup
+        isOpen={isAddPlacePopupOpen}
+        onClose={closeAllPopups}
+        onAddPlace={handleAddPlaceSubmit}
+      />
+      <ImagePopup
+        card={selectedCard}
+        isOpen={isImagePopupOpen}
+        onClose={closeAllPopups}
+      />
+    </CurrentUserContext.Provider>
   );
 }
 
